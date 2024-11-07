@@ -6,13 +6,15 @@ namespace cryptipedia.Controllers;
 [Route("api/[controller]")]
 public class ClassificationsController : ControllerBase
 {
-  public ClassificationsController(ClassificationsService classificationsService, Auth0Provider auth0Provider)
+  public ClassificationsController(ClassificationsService classificationsService, Auth0Provider auth0Provider, CryptidClassificationsService cryptidClassificationsService)
   {
     _classificationsService = classificationsService;
     _auth0Provider = auth0Provider;
+    _cryptidClassificationsService = cryptidClassificationsService;
   }
 
   private readonly ClassificationsService _classificationsService;
+  private readonly CryptidClassificationsService _cryptidClassificationsService;
   private readonly Auth0Provider _auth0Provider;
 
   [HttpGet]
@@ -50,6 +52,20 @@ public class ClassificationsController : ControllerBase
     {
       Classification classification = _classificationsService.GetRandomClassification();
       return Ok(classification);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [HttpGet("{classificationId}/cryptids")]
+  public ActionResult<List<CryptidClassificationCryptid>> GetCryptidClassificationsByClassificationId(int classificationId)
+  {
+    try
+    {
+      List<CryptidClassificationCryptid> cryptids = _cryptidClassificationsService.GetCryptidClassificationsByClassificationId(classificationId);
+      return Ok(cryptids);
     }
     catch (Exception exception)
     {

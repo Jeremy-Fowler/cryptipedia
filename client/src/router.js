@@ -17,6 +17,11 @@ const routes = [
     component: loadPage('CryptidDetailsPage')
   },
   {
+    path: '/classifications/:classificationId',
+    name: 'Classification',
+    component: loadPage('ClassificationDetailsPage')
+  },
+  {
     path: '/account',
     name: 'Account',
     component: loadPage('AccountPage'),

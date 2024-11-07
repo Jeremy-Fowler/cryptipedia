@@ -23,4 +23,23 @@ public class CryptidClassificationsService
   {
     return _repository.GetCryptidClassificationsByCryptidId(cryptidId);
   }
+
+  private CryptidClassificationCryptid GetCryptidClassificationCryptidById(int cryptidClassificationId)
+  {
+    return _repository.GetCryptidClassificationCryptidById(cryptidClassificationId);
+  }
+
+  internal string DeleteCryptidClassification(int cryptidClassificationId, string userId)
+  {
+    CryptidClassificationCryptid cryptid = GetCryptidClassificationCryptidById(cryptidClassificationId);
+    if (cryptid.DiscovererId != userId) throw new Exception($"YOU MUST HAVE DISCOVERED THE {cryptid.Name.ToUpper()} TO REMOVE A CLASSIFICATION");
+    _repository.DeleteCryptidClassification(cryptidClassificationId);
+
+    return $"Successfully removed classification from {cryptid.Name}!";
+  }
+
+  internal List<CryptidClassificationCryptid> GetCryptidClassificationsByClassificationId(int classificationId)
+  {
+    return _repository.GetCryptidClassificationsByClassificationId(classificationId);
+  }
 }

@@ -27,4 +27,20 @@ public class CryptidClassificationsController : ControllerBase
       return BadRequest(exception.Message);
     }
   }
+
+  [HttpDelete("{cryptidClassificationId}")]
+  [Authorize]
+  public async Task<ActionResult<string>> DeleteCryptidClassification(int cryptidClassificationId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      string message = _cryptidClassificationsService.DeleteCryptidClassification(cryptidClassificationId, userInfo.Id);
+      return Ok(message);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
 }

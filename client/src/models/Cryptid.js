@@ -17,3 +17,10 @@ export class Cryptid extends APIItem {
     return `url(${this.imgUrl})`
   }
 }
+
+export class CryptidClassificationCryptid extends Cryptid {
+  constructor(data) {
+    super(data)
+    this.cryptidClassificationId = data.cryptidClassificationId
+  }
+}

@@ -1,6 +1,3 @@
-
-
-
 namespace cryptipedia.Repositories;
 
 public class CryptidClassificationsRepository
@@ -39,5 +36,53 @@ public class CryptidClassificationsRepository
     WHERE cryptid_classifications.cryptid_id = @cryptidId;";
 
     return _db.Query<CryptidClassificationClassification>(sql, new { cryptidId }).ToList();
+  }
+
+  internal CryptidClassification GetCryptidClassificationById(int cryptidClassificationId)
+  {
+    string sql = "SELECT * FROM cryptid_classifications WHERE id = @cryptidClassificationId LIMIT 1;";
+
+    return _db.Query<CryptidClassification>(sql, new { cryptidClassificationId }).SingleOrDefault();
+  }
+
+  internal CryptidClassificationCryptid GetCryptidClassificationCryptidById(int cryptidClassificationId)
+  {
+    string sql = @"
+    SELECT
+    cryptids.*,
+    cryptid_classifications.id AS cryptid_classification_id
+    FROM cryptid_classifications
+    JOIN cryptids ON cryptids.id = cryptid_classifications.cryptid_id
+    WHERE cryptid_classifications.id = @cryptidClassificationId LIMIT 1;";
+
+    return _db.Query<CryptidClassificationCryptid>(sql, new { cryptidClassificationId }).SingleOrDefault();
+  }
+
+  internal void DeleteCryptidClassification(int cryptidClassificationId)
+  {
+    string sql = "DELETE FROM cryptid_classifications WHERE id = @cryptidClassificationId LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { cryptidClassificationId });
+
+    if (rowsAffected != 1) throw new Exception("DELETE FAILED");
+  }
+
+  internal List<CryptidClassificationCryptid> GetCryptidClassificationsByClassificationId(int classificationId)
+  {
+    string sql = @"
+    SELECT
+    cryptids.*,
+    cryptid_classifications.id AS cryptid_classification_id,
+    accounts.*
+    FROM cryptid_classifications
+    JOIN cryptids ON cryptids.id = cryptid_classifications.cryptid_id
+    JOIN accounts ON accounts.id = cryptids.discoverer_id
+    WHERE cryptid_classifications.classification_id = @classificationId;";
+
+    return _db.Query(sql, (CryptidClassificationCryptid cryptid, Profile account) =>
+    {
+      cryptid.Discoverer = account;
+      return cryptid;
+    }, new { classificationId }).ToList();
   }
 }

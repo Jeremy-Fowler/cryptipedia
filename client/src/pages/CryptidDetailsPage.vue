@@ -8,7 +8,7 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute()
 const cryptid = computed(() => AppState.activeCryptid)
-const classifications = computed(() => AppState.cryptidClassificationClassifications)
+const classifications = computed(() => AppState.classifications)
 
 watch(route, () => {
   getCryptidById()
@@ -41,10 +41,13 @@ async function getCryptidClassificationsByCryptidId() {
       <section class="col-md-7">
         <div class="p-5 text-light">
           <header class="fs-1 italiana-regular text-warning d-flex gap-2">
-            <span v-for="classification in classifications" :key="classification.cryptidClassificationId"
-              class="text-capitalize">
-              {{ classification.title }}
-            </span>
+            <span v-if="classifications.length == 0">Unclassified</span>
+            <RouterLink v-for="classification in classifications" :key="classification.cryptidClassificationId"
+              :to="{ name: 'Classification', params: { classificationId: classification.id } }">
+              <span class="text-capitalize text-warning classification-title">
+                {{ classification.title }}
+              </span>
+            </RouterLink>
             <span>Cryptid</span>
           </header>
           <h1 class="italiana-regular">{{ cryptid.name.toUpperCase() }}</h1>
@@ -92,5 +95,9 @@ h1 {
 
 .col-md-5:hover {
   filter: unset;
+}
+
+.classification-title:hover {
+  text-decoration: underline;
 }
 </style>

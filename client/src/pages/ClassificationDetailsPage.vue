@@ -4,40 +4,38 @@ import ClassificationHero from '@/components/ClassificationHero.vue';
 import CryptidCard from '@/components/CryptidCard.vue';
 import FancyHeader from '@/components/FancyHeader.vue';
 import { classificationsService } from '@/services/ClassificationsService.js';
-import { cryptidsService } from '@/services/CryptidsService.js';
-import { logger } from '@/utils/Logger.js';
+import { cryptidClassificationsService } from '@/services/CryptidClassificationsService.js';
 import Pop from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
+import { computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
+const route = useRoute()
 const cryptids = computed(() => AppState.cryptids)
+const classification = computed(() => AppState.activeClassification)
+watch(route, () => {
+  getClassificationById()
+  getCryptidsByClassificationById()
+}, { immediate: true })
 
-
-onMounted(() => {
-  getRandomClassification()
-  getCryptids()
-})
-
-async function getRandomClassification() {
+async function getClassificationById() {
   try {
-    await classificationsService.getClassificationById('random')
+    await classificationsService.getClassificationById(route.params.classificationId)
   }
   catch (error) {
     Pop.error(error);
-    logger.error(error)
   }
 }
-async function getCryptids() {
+async function getCryptidsByClassificationById() {
   try {
-    await cryptidsService.getCryptids()
+    await cryptidClassificationsService.getCryptidsByClassificationById(route.params.classificationId)
   }
   catch (error) {
     Pop.error(error);
-    logger.error(error)
   }
 }
-
 
 </script>
+
 
 <template>
   <div>
@@ -47,7 +45,7 @@ async function getCryptids() {
     <div class="container-fluid">
       <section class="row header-section">
         <div class="col-12">
-          <FancyHeader text="Cryptids" />
+          <FancyHeader :text="classification?.title + ' Cryptids'" />
         </div>
       </section>
     </div>
@@ -63,7 +61,8 @@ async function getCryptids() {
   </div>
 </template>
 
-<style scoped lang="scss">
+
+<style lang="scss" scoped>
 .header-section {
   margin-bottom: 10rem;
 }

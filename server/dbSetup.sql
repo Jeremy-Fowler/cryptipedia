@@ -40,6 +40,8 @@ CREATE TABLE
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     cryptid_id INT NOT NULL,
     classification_id INT NOT NULL,
+    FOREIGN KEY (cryptid_id) REFERENCES cryptids (id) ON DELETE CASCADE,
+    FOREIGN KEY (classification_id) REFERENCES classifications (id) ON DELETE CASCADE,
     UNIQUE (cryptid_id, classification_id)
   );
 

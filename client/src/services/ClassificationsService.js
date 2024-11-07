@@ -4,8 +4,8 @@ import { AppState } from "@/AppState.js"
 import { Classification } from "@/models/Classification.js"
 
 class ClassificationsService {
-  async getRandomClassification() {
-    const res = await api.get('api/classifications/random')
+  async getClassificationById(classificationId) {
+    const res = await api.get(`api/classifications/${classificationId}`)
     AppState.activeClassification = new Classification(res.data)
   }
 }

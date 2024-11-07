@@ -1,4 +1,5 @@
 import { reactive } from 'vue'
+import { Cryptid, CryptidClassificationCryptid } from './models/Cryptid.js'
 
 // NOTE AppState is a reactive object to contain app level data
 export const AppState = reactive({
@@ -8,11 +9,11 @@ export const AppState = reactive({
   account: null,
   /** @type {import('./models/Classification.js').Classification} */
   activeClassification: null,
-  /** @type {import('./models/Cryptid.js').Cryptid[]} */
+  /** @type {Cryptid[] | CryptidClassificationCryptid[]} */
   cryptids: [],
-  /** @type {import('./models/Cryptid.js').Cryptid} */
+  /** @type {Cryptid} */
   activeCryptid: null,
   /** @type {import('./models/Classification.js').CryptidClassificationClassification[]} */
-  cryptidClassificationClassifications: []
+  classifications: []
 })
 
