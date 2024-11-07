@@ -31,6 +31,9 @@
       "titleBar.inactiveBackground": "#69982999",
       "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "#699829"
+    "peacock.color": "#699829",
+    "cSpell.words": [
+      "cryptipedia"
+    ]
   }
 }

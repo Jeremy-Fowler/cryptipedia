@@ -9,7 +9,7 @@ import { AppState } from './AppState.js';
     <Navbar />
   </header>
   <main>
-    <router-view />
+    <RouterView />
   </main>
   <footer class="bg-dark text-light">
     Made with 💖 by CodeWorks
@@ -18,6 +18,7 @@ import { AppState } from './AppState.js';
 
 <style lang="scss">
 @import '@/assets/scss/main.scss';
+
 :root {
   --main-height: calc(100vh - 32px - 64px);
 }

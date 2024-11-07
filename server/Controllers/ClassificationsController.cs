@@ -1,5 +1,7 @@
 namespace cryptipedia.Controllers;
 
+
+
 [ApiController]
 [Route("api/[controller]")]
 public class ClassificationsController : ControllerBase
@@ -20,6 +22,34 @@ public class ClassificationsController : ControllerBase
     {
       List<Classification> classifications = _classificationsService.GetAllClassifications();
       return Ok(classifications);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [HttpGet("{classificationId}")]
+  public ActionResult<Classification> GetClassificationById(int classificationId)
+  {
+    try
+    {
+      Classification classification = _classificationsService.GetClassificationById(classificationId);
+      return Ok(classification);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [HttpGet("random")]
+  public ActionResult<Classification> GetRandomClassification()
+  {
+    try
+    {
+      Classification classification = _classificationsService.GetRandomClassification();
+      return Ok(classification);
     }
     catch (Exception exception)
     {

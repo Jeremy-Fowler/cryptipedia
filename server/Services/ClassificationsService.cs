@@ -1,6 +1,3 @@
-
-
-
 namespace cryptipedia.Services;
 
 public class ClassificationsService
@@ -14,5 +11,15 @@ public class ClassificationsService
   internal List<Classification> GetAllClassifications()
   {
     return _repository.GetAllClassifications();
+  }
+
+  internal Classification GetRandomClassification()
+  {
+    return _repository.GetRandomClassification();
+  }
+
+  internal Classification GetClassificationById(int classificationId)
+  {
+    return _repository.GetClassificationById(classificationId);
   }
 }

@@ -40,6 +40,8 @@ public class Startup
     services.AddScoped<CryptidsService>();
     services.AddScoped<ClassificationsRepository>();
     services.AddScoped<ClassificationsService>();
+    services.AddScoped<CryptidClassificationsRepository>();
+    services.AddScoped<CryptidClassificationsService>();
   }
 
   private void ConfigureCors(IServiceCollection services)

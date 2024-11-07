@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace cryptipedia.Models;
 
-
 public class Classification : RepoItem<int>
 {
   public string Title { get; set; }
