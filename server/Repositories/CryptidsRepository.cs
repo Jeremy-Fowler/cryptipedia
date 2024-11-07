@@ -15,12 +15,11 @@ public class CryptidsRepository
   {
     string sql = @"
     SELECT
-      cryptids.*,
-      accounts.*
-    FROM 
-      cryptids
-    JOIN 
-      accounts ON accounts.id = cryptids.discoverer_id;";
+    cryptids.*,
+    accounts.*
+    FROM cryptids
+    JOIN accounts ON accounts.id = cryptids.discoverer_id
+    ORDER BY cryptids.id;";
 
     return _db.Query(sql, (Cryptid cryptid, Profile account) =>
     {

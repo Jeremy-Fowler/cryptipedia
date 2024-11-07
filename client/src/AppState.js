@@ -14,6 +14,8 @@ export const AppState = reactive({
   /** @type {Cryptid} */
   activeCryptid: null,
   /** @type {import('./models/Classification.js').CryptidClassificationClassification[]} */
+  cryptidClassifications: [],
+  /** @type {import('./models/Classification.js').Classification[]} */
   classifications: []
 })
 

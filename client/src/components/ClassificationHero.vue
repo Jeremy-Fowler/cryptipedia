@@ -16,11 +16,15 @@ const route = useRoute()
       <div class="col-md-5">
         <div class="p-5 mt-5 text-light">
           <RouterLink v-if="route.name == 'Home'"
-            :to="{ name: 'Classification', params: { classificationId: classification.id } }">
-            <h2 class="italiana-regular text-capitalize text-warning hover-underline">{{ classification.title }}</h2>
+            :to="{ name: 'Classification', params: { classificationId: classification.id } }"
+            :title="classification.title + ' page'">
+            <h2 class="italiana-regular text-capitalize text-warning hover-underline">
+              {{ classification.title }}
+            </h2>
           </RouterLink>
-          <h2 v-else class="italiana-regular text-capitalize text-warning">{{
-            classification.title }}</h2>
+          <h2 v-else class="italiana-regular text-capitalize text-warning">
+            {{ classification.title }}
+          </h2>
           <p>{{ classification.description }}</p>
         </div>
       </div>

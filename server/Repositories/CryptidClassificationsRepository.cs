@@ -77,7 +77,8 @@ public class CryptidClassificationsRepository
     FROM cryptid_classifications
     JOIN cryptids ON cryptids.id = cryptid_classifications.cryptid_id
     JOIN accounts ON accounts.id = cryptids.discoverer_id
-    WHERE cryptid_classifications.classification_id = @classificationId;";
+    WHERE cryptid_classifications.classification_id = @classificationId
+    ORDER BY cryptids.id;";
 
     return _db.Query(sql, (CryptidClassificationCryptid cryptid, Profile account) =>
     {

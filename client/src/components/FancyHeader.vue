@@ -15,6 +15,8 @@ defineProps({
 
 <style lang="scss" scoped>
 .position-relative {
+  overflow-x: hidden;
+
   h1 {
     position: absolute;
     top: 5rem;
@@ -24,6 +26,7 @@ defineProps({
   span {
     font-size: 10rem;
     user-select: none;
+    overflow-y: hidden;
   }
 }
 </style>

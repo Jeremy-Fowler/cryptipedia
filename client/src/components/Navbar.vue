@@ -30,12 +30,8 @@ function toggleTheme() {
       <ul class="navbar-nav me-auto">
 
       </ul>
-      <!-- LOGIN COMPONENT HERE -->
       <div>
-        <button class="btn text-light" @click="toggleTheme"
-          :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
-          <Icon :name="theme == 'light' ? 'weather-sunny' : 'weather-night'" />
-        </button>
+
       </div>
       <Login />
     </div>
